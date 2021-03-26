@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.Shell.Interop;
 using System;
 using System.ComponentModel.Design;
 using System.Globalization;
+using System.Diagnostics;
 using Task = System.Threading.Tasks.Task;
 
 namespace CPPReferenceDocumentation.Commands
@@ -27,6 +28,8 @@ namespace CPPReferenceDocumentation.Commands
         /// VS Package that provides this command, not null.
         /// </summary>
         private readonly AsyncPackage package;
+
+        private static UrlGenerator urlGenerator = new UrlGenerator();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GetDescription"/> class.
@@ -89,7 +92,7 @@ namespace CPPReferenceDocumentation.Commands
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            DTE dte = package.GetServiceAsync(typeof(DTE)) as DTE;
+            DTE dte = package.GetServiceAsync(typeof(DTE)).Result as DTE;
 
             if (dte.ActiveDocument == null)
             {
@@ -98,8 +101,9 @@ namespace CPPReferenceDocumentation.Commands
 
             TextSelection selection = dte.ActiveDocument.Selection as TextSelection;
 
-            
+            urlGenerator.RawView = selection.Text;
 
+            System.Diagnostics.Process.Start("chrome.exe", $"--new-window {urlGenerator.RawView}");
         }
     }
 }
