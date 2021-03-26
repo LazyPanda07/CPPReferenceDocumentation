@@ -9,6 +9,8 @@ using System.Collections.Concurrent;
 
 namespace CPPReferenceDocumentation
 {
+    // TODO: coroutines - offline
+    // TODO: regex - offline
     class UrlGenerator :
         IContainerUrlGenerator,
         IAlgorithmUrlGenerator,
@@ -21,7 +23,8 @@ namespace CPPReferenceDocumentation
         ITypesUrlGenerator,
         IDateTimeUrlGenerator,
         IIteratorUrlGenerator,
-        IRangesUrlGenerator
+        IRangesUrlGenerator,
+        IAtomicUrlGenerator
     {
         private readonly string baseRoute = "https://en.cppreference.com/w/cpp";
         private string data;
@@ -69,7 +72,8 @@ namespace CPPReferenceDocumentation
                         GenerateTypesUrl,
                         GenerateDateTimeUrl,
                         GenerateIteratorUrl,
-                        GenerateRangesUrl
+                        GenerateRangesUrl,
+                        GenerateAtomicUrl
                     };
                 }
             }
@@ -285,6 +289,11 @@ namespace CPPReferenceDocumentation
         public string GenerateRangesUrl()
         {
             return this.HttpCheckUrl("ranges");
+        }
+
+        public string GenerateAtomicUrl()
+        {
+            return this.HttpCheckUrl("atomic");
         }
     }
 }
