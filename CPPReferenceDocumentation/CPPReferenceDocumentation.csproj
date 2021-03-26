@@ -55,7 +55,7 @@
     <Compile Include="Source\Interfaces\IThreadUrlGenerator.cs" />
     <Compile Include="Source\Interfaces\IUtilityUrlGenerator.cs" />
     <Compile Include="Source\UrlGenerator.cs" />
-    <Compile Include="Source\Commands\GetDescription.cs" />
+    <Compile Include="Source\Commands\GetDocumentation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CPPReferenceDocumentationPackage.cs" />
   </ItemGroup>

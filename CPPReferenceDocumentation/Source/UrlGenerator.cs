@@ -21,7 +21,8 @@ namespace CPPReferenceDocumentation
         private readonly string baseRoute = "https://en.cppreference.com/w/cpp";
         private string data;
         private HashSet<string> containers;
-        private List<Func<string>> methods;
+        private List<Func<string>> offlineMethods;
+        private List<Func<string>> onlineMethods;
 
         private string HttpCheckUrl(string section)
         {
@@ -44,15 +45,17 @@ namespace CPPReferenceDocumentation
             {
                 data = value.Contains("std::") ? value.Substring(5) : value;
 
-                if (methods == null)
+                if (offlineMethods == null)
                 {
-                    methods = new List<Func<string>>()
+                    offlineMethods = new List<Func<string>>()   // offline calculation
                     {
-                        GenerateContainerUrl,   // offline calculation
-                        GenerateStreamsUrl, // offline calculation
-                        GenerateStringUrl,  // offline calculation
+                        GenerateContainerUrl,
+                        GenerateStreamsUrl,
+                        GenerateStringUrl
+                    };
 
-                        // online check
+                    onlineMethods = new List<Func<string>>()    // online check
+                    {
                         GenerateAlgorithmUrl,
                         GenerateFilesystemUrl,
                         GenerateMemoryUrl,
@@ -65,13 +68,26 @@ namespace CPPReferenceDocumentation
             {
                 string result = "";
 
-                foreach (var method in methods)
+                foreach (var method in offlineMethods)
                 {
                     result = method();
 
                     if (result.Length != 0)
                     {
                         break;
+                    }
+                }
+
+                if(result.Length == 0)
+                {
+                    foreach (var method in onlineMethods)
+                    {
+                        result = method();
+
+                        if(result.Length != 0)
+                        {
+                            break;
+                        }
                     }
                 }
 

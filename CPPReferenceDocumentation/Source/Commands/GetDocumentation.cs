@@ -12,7 +12,7 @@ namespace CPPReferenceDocumentation.Commands
     /// <summary>
     /// Command handler
     /// </summary>
-    internal sealed class GetDescription
+    internal sealed class GetDocumentation
     {
         /// <summary>
         /// Command ID.
@@ -37,7 +37,7 @@ namespace CPPReferenceDocumentation.Commands
         /// </summary>
         /// <param name="package">Owner package, not null.</param>
         /// <param name="commandService">Command service to add command to, not null.</param>
-        private GetDescription(AsyncPackage package, OleMenuCommandService commandService)
+        private GetDocumentation(AsyncPackage package, OleMenuCommandService commandService)
         {
             this.package = package ?? throw new ArgumentNullException(nameof(package));
             commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
@@ -50,7 +50,7 @@ namespace CPPReferenceDocumentation.Commands
         /// <summary>
         /// Gets the instance of the command.
         /// </summary>
-        public static GetDescription Instance
+        public static GetDocumentation Instance
         {
             get;
             private set;
@@ -73,12 +73,12 @@ namespace CPPReferenceDocumentation.Commands
         /// <param name="package">Owner package, not null.</param>
         public static async Task InitializeAsync(AsyncPackage package)
         {
-            // Switch to the main thread - the call to AddCommand in GetDescription's constructor requires
+            // Switch to the main thread - the call to AddCommand in GetDocumentation's constructor requires
             // the UI thread.
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync(package.DisposalToken);
 
             OleMenuCommandService commandService = await package.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
-            Instance = new GetDescription(package, commandService);
+            Instance = new GetDocumentation(package, commandService);
         }
 
         /// <summary>
