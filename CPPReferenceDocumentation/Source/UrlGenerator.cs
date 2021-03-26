@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Net.Http;
 
 namespace CPPReferenceDocumentation
 {
@@ -33,9 +34,14 @@ namespace CPPReferenceDocumentation
                     {
                         result = this.GenerateStreamsUrl();
 
-                        if(result.Length == 0)
+                        if (result.Length == 0)
                         {
+                            result = this.GenerateAlgorithmUrl();
 
+                            if (result.Length == 0)
+                            {
+
+                            }
                         }
                     }
                 }
@@ -46,7 +52,17 @@ namespace CPPReferenceDocumentation
 
         public string GenerateAlgorithmUrl()
         {
-            throw new NotImplementedException();
+            using (HttpClient client = new HttpClient())
+            {
+                string url = $"{baseRoute}/algorithm/{data}";
+
+                if (client.GetAsync(url).Result.IsSuccessStatusCode)
+                {
+                    return url;
+                }
+            }
+
+            return "";
         }
 
         public string GenerateContainerUrl()
