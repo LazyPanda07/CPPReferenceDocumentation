@@ -9,48 +9,69 @@ using System.Net.Http;
 namespace CPPReferenceDocumentation
 {
     class UrlGenerator :
-        IContainerUrlGenerator, 
+        IContainerUrlGenerator,
         IAlgorithmUrlGenerator,
         IStringUrlGenerator,
         IStreamsUrlGenerator,
         IMemoryUrlGenerator,
         IUtilityUrlGenerator,
-        IThreadsUrlGenerator,
+        IThreadUrlGenerator,
         IFilesystemUrlGenerator
     {
         private readonly string baseRoute = "https://en.cppreference.com/w/cpp";
         private string data;
         private HashSet<string> containers;
+        private List<Func<string>> methods;
+
+        private string HttpCheckUrl(string section)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                string url = $"{baseRoute}/{section}/{data}";
+
+                if (client.GetAsync(url).Result.IsSuccessStatusCode)
+                {
+                    return url;
+                }
+            }
+
+            return "";
+        }
 
         public string RawView
         {
             set
             {
                 data = value.Contains("std::") ? value.Substring(5) : value;
+
+                if (methods == null)
+                {
+                    methods = new List<Func<string>>()
+                    {
+                        GenerateContainerUrl,   // offline calculation
+                        GenerateStreamsUrl, // offline calculation
+                        GenerateStringUrl,  // offline calculation
+
+                        // online check
+                        GenerateAlgorithmUrl,
+                        GenerateFilesystemUrl,
+                        GenerateMemoryUrl,
+                        GenerateThreadUrl,
+                        GenerateUtilityUrl
+                    };
+                }
             }
             get
             {
-                string result;
+                string result = "";
 
-                result = this.GenerateContainerUrl();
-
-                if (result.Length == 0)
+                foreach (var method in methods)
                 {
-                    result = this.GenerateStringUrl();
+                    result = method();
 
-                    if (result.Length == 0)
+                    if (result.Length != 0)
                     {
-                        result = this.GenerateStreamsUrl();
-
-                        if (result.Length == 0)
-                        {
-                            result = this.GenerateAlgorithmUrl();
-
-                            if (result.Length == 0)
-                            {
-
-                            }
-                        }
+                        break;
                     }
                 }
 
@@ -62,17 +83,7 @@ namespace CPPReferenceDocumentation
 
         public string GenerateAlgorithmUrl()
         {
-            using (HttpClient client = new HttpClient())
-            {
-                string url = $"{baseRoute}/algorithm/{data}";
-
-                if (client.GetAsync(url).Result.IsSuccessStatusCode)
-                {
-                    return url;
-                }
-            }
-
-            return "";
+            return this.HttpCheckUrl("algorithm");
         }
 
         public string GenerateContainerUrl()
@@ -115,12 +126,12 @@ namespace CPPReferenceDocumentation
 
         public string GenerateFilesystemUrl()
         {
-            throw new NotImplementedException();
+            return this.HttpCheckUrl("filesystem");
         }
 
         public string GenerateMemoryUrl()
         {
-            throw new NotImplementedException();
+            return this.HttpCheckUrl("memory");
         }
 
         public string GenerateStreamsUrl()
@@ -214,14 +225,14 @@ namespace CPPReferenceDocumentation
             return "";
         }
 
-        public string GenerateThreadsUrl()
+        public string GenerateThreadUrl()
         {
-            throw new NotImplementedException();
+            return this.HttpCheckUrl("thread");
         }
 
         public string GenerateUtilityUrl()
         {
-            throw new NotImplementedException();
+            return this.HttpCheckUrl("utility");
         }
     }
 }

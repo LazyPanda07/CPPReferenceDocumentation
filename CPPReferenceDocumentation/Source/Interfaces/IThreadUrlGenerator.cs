@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace CPPReferenceDocumentation.Source.Interfaces
 {
-    interface IThreadsUrlGenerator
+    interface IThreadUrlGenerator
     {
-        string GenerateThreadsUrl();
+        string GenerateThreadUrl();
     }
 }

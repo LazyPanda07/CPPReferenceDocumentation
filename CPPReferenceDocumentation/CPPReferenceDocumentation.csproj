@@ -48,8 +48,12 @@
   <ItemGroup>
     <Compile Include="Source\Interfaces\IAlgorithmUrlGenerator.cs" />
     <Compile Include="Source\Interfaces\IContainerUrlGenerator.cs" />
+    <Compile Include="Source\Interfaces\IFilesystemUrlGenerator.cs" />
+    <Compile Include="Source\Interfaces\IMemoryUrlGenerator.cs" />
     <Compile Include="Source\Interfaces\IStreamsUrlGenerator.cs" />
     <Compile Include="Source\Interfaces\IStringUrlGenerator.cs" />
+    <Compile Include="Source\Interfaces\IThreadUrlGenerator.cs" />
+    <Compile Include="Source\Interfaces\IUtilityUrlGenerator.cs" />
     <Compile Include="Source\UrlGenerator.cs" />
     <Compile Include="Source\Commands\GetDescription.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
