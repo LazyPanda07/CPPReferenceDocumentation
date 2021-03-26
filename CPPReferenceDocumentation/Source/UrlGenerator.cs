@@ -18,7 +18,8 @@ namespace CPPReferenceDocumentation
         IUtilityUrlGenerator,
         IThreadUrlGenerator,
         IFilesystemUrlGenerator,
-        ITypesUrlGenerator
+        ITypesUrlGenerator,
+        IDateTimeUrlGenerator
     {
         private readonly string baseRoute = "https://en.cppreference.com/w/cpp";
         private string data;
@@ -63,7 +64,8 @@ namespace CPPReferenceDocumentation
                         GenerateMemoryUrl,
                         GenerateThreadUrl,
                         GenerateUtilityUrl,
-                        GenerateTypesUrl
+                        GenerateTypesUrl,
+                        GenerateDateTimeUrl
                     };
                 }
             }
@@ -264,6 +266,11 @@ namespace CPPReferenceDocumentation
         public string GenerateTypesUrl()
         {
             return this.HttpCheckUrl("types");
+        }
+
+        public string GenerateDateTimeUrl()
+        {
+            return this.HttpCheckUrl("chrono");
         }
     }
 }
