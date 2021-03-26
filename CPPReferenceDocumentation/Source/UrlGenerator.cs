@@ -95,9 +95,16 @@ namespace CPPReferenceDocumentation
                 {
                     ConcurrentBag<string> onlineChecks = new ConcurrentBag<string>();
 
-                    Parallel.ForEach(onlineMethods, onlineMethod =>
+                    Parallel.ForEach(onlineMethods, (onlineMethod, state) =>
                     {
-                        onlineChecks.Add(onlineMethod());
+                        string tem = onlineMethod();
+
+                        onlineChecks.Add(tem);
+
+                        if (tem.Length != 0)
+                        {
+                            state.Break();
+                        }
                     });
 
                     foreach (var i in onlineChecks)
