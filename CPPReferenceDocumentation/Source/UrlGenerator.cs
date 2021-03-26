@@ -27,7 +27,12 @@ namespace CPPReferenceDocumentation
 
                 if (result.Length == 0)
                 {
+                    result = this.GenerateStringUrl();
 
+                    if (result.Length == 0)
+                    {
+
+                    }
                 }
 
                 return result;
@@ -83,7 +88,16 @@ namespace CPPReferenceDocumentation
         }
         public string GenerateStringUrl()
         {
-            throw new NotImplementedException();
+            if (data == "string" || data == "wstring" || data == "u8string" || data == "u16string" || data == "u32string" || data == "basic_string")
+            {
+                return baseRoute + "string/basic_string";
+            }
+            else if (data == "string_view" || data == "wstring_view" || data == "u8string_view" || data == "u16string_view" || data == "u32string_view" || data == "basic_string_view")
+            {
+                return baseRoute + "string/basic_string_view";
+            }
+
+            return "";
         }
     }
 }
