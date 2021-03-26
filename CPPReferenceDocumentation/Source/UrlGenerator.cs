@@ -9,7 +9,7 @@ namespace CPPReferenceDocumentation
 {
     class UrlGenerator : IContainerUrlGenerator, IAlgorithmUrlGenerator, IStringUrlGenerator, IStreamsUrlGenerator
     {
-        private readonly string baseRoute = "https://en.cppreference.com/w/cpp/";
+        private readonly string baseRoute = "https://en.cppreference.com/w/cpp";
         private string data;
         private HashSet<string> containers;
 
@@ -31,7 +31,12 @@ namespace CPPReferenceDocumentation
 
                     if (result.Length == 0)
                     {
+                        result = this.GenerateStreamsUrl();
 
+                        if(result.Length == 0)
+                        {
+
+                        }
                     }
                 }
 
@@ -79,22 +84,95 @@ namespace CPPReferenceDocumentation
                 return "";
             }
 
-            return baseRoute + "container/" + data;
+            return $"{baseRoute}/container/{data}";
         }
 
         public string GenerateStreamsUrl()
         {
-            throw new NotImplementedException();
+            #region Input streams
+            if (data == "cin" || data == "wcin")
+            {
+                return $"{baseRoute}/io/cin";
+            }
+
+            if (data == "istream" || data == "wistream" || data == "basic_istream")
+            {
+                return $"{baseRoute}/io/basic_istream";
+            }
+
+            if (data == "ifstream" || data == "wifstream" || data == "basic_ifstream")
+            {
+                return $"{baseRoute}/io/basic_ifstream";
+            }
+
+            if (data == "istringstream" || data == "wistringstream" || data == "basic_istringstream")
+            {
+                return $"{baseRoute}/io/basic_istringstream";
+            }
+            #endregion
+
+            #region Output streams
+            if (data == "cout" || data == "wcout")
+            {
+                return $"{baseRoute}/io/cout";
+            }
+
+            if (data == "ostream" || data == "wostream" || data == "basic_ostream")
+            {
+                return $"{baseRoute}/io/basic_ostream";
+            }
+
+            if (data == "ofstream" || data == "wofstream" || data == "basic_ofstream")
+            {
+                return $"{baseRoute}/io/basic_ofstream";
+            }
+
+            if (data == "ostringstream" || data == "wostringstream" || data == "basic_ostringstream")
+            {
+                return $"{baseRoute}/io/basic_ostringstream";
+            }
+
+            if (data == "osyncstream" || data == "wosyncstream" || data == "basic_osyncstream")
+            {
+                return $"{baseRoute}/io/basic_osyncstream";
+            }
+            #endregion
+
+            #region Utility streams
+            if (data == "cerr" || data == "wcerr")
+            {
+                return $"{baseRoute}/io/cerr";
+            }
+
+            if (data == "clog" || data == "wclog")
+            {
+                return $"{baseRoute}/io/clog";
+            }
+            #endregion
+
+            #region I/O streams
+            if (data == "iostream" || data == "wiostream" || data == "basic_iostream")
+            {
+                return $"{baseRoute}/io/basic_iostream";
+            }
+
+            if (data == "stringstream" || data == "wstringstream" || data == "basic_stringstream")
+            {
+                return $"{baseRoute}/io/basic_stringstream";
+            }
+            #endregion
+
+            return "";
         }
         public string GenerateStringUrl()
         {
             if (data == "string" || data == "wstring" || data == "u8string" || data == "u16string" || data == "u32string" || data == "basic_string")
             {
-                return baseRoute + "string/basic_string";
+                return $"{baseRoute}/string/basic_string";
             }
             else if (data == "string_view" || data == "wstring_view" || data == "u8string_view" || data == "u16string_view" || data == "u32string_view" || data == "basic_string_view")
             {
-                return baseRoute + "string/basic_string_view";
+                return $"{baseRoute}/string/basic_string_view";
             }
 
             return "";
