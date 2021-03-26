@@ -8,7 +8,15 @@ using System.Net.Http;
 
 namespace CPPReferenceDocumentation
 {
-    class UrlGenerator : IContainerUrlGenerator, IAlgorithmUrlGenerator, IStringUrlGenerator, IStreamsUrlGenerator
+    class UrlGenerator :
+        IContainerUrlGenerator, 
+        IAlgorithmUrlGenerator,
+        IStringUrlGenerator,
+        IStreamsUrlGenerator,
+        IMemoryUrlGenerator,
+        IUtilityUrlGenerator,
+        IThreadsUrlGenerator,
+        IFilesystemUrlGenerator
     {
         private readonly string baseRoute = "https://en.cppreference.com/w/cpp";
         private string data;
@@ -46,7 +54,9 @@ namespace CPPReferenceDocumentation
                     }
                 }
 
-                return result;
+                return result.Length == 0 ?
+                    $"https://duckduckgo.com/?sites=cppreference.com&q={data}&ia=web" :
+                    result;
             }
         }
 
@@ -101,6 +111,16 @@ namespace CPPReferenceDocumentation
             }
 
             return $"{baseRoute}/container/{data}";
+        }
+
+        public string GenerateFilesystemUrl()
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GenerateMemoryUrl()
+        {
+            throw new NotImplementedException();
         }
 
         public string GenerateStreamsUrl()
@@ -192,6 +212,16 @@ namespace CPPReferenceDocumentation
             }
 
             return "";
+        }
+
+        public string GenerateThreadsUrl()
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GenerateUtilityUrl()
+        {
+            throw new NotImplementedException();
         }
     }
 }
