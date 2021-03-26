@@ -53,6 +53,7 @@
     <Compile Include="Source\Interfaces\IStreamsUrlGenerator.cs" />
     <Compile Include="Source\Interfaces\IStringUrlGenerator.cs" />
     <Compile Include="Source\Interfaces\IThreadUrlGenerator.cs" />
+    <Compile Include="Source\Interfaces\ITypesUrlGenerator.cs" />
     <Compile Include="Source\Interfaces\IUtilityUrlGenerator.cs" />
     <Compile Include="Source\UrlGenerator.cs" />
     <Compile Include="Source\Commands\GetDocumentation.cs" />

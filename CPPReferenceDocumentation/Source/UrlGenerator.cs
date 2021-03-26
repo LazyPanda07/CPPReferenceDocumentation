@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net.Http;
+using System.Collections.Concurrent;
 
 namespace CPPReferenceDocumentation
 {
@@ -16,7 +17,8 @@ namespace CPPReferenceDocumentation
         IMemoryUrlGenerator,
         IUtilityUrlGenerator,
         IThreadUrlGenerator,
-        IFilesystemUrlGenerator
+        IFilesystemUrlGenerator,
+        ITypesUrlGenerator
     {
         private readonly string baseRoute = "https://en.cppreference.com/w/cpp";
         private string data;
@@ -60,7 +62,8 @@ namespace CPPReferenceDocumentation
                         GenerateFilesystemUrl,
                         GenerateMemoryUrl,
                         GenerateThreadUrl,
-                        GenerateUtilityUrl
+                        GenerateUtilityUrl,
+                        GenerateTypesUrl
                     };
                 }
             }
@@ -80,12 +83,19 @@ namespace CPPReferenceDocumentation
 
                 if(result.Length == 0)
                 {
-                    foreach (var method in onlineMethods)
-                    {
-                        result = method();
+                    ConcurrentBag<string> onlineChecks = new ConcurrentBag<string>();
 
-                        if(result.Length != 0)
+                    Parallel.ForEach(onlineMethods, onlineMethod =>
+                    {
+                        onlineChecks.Add(onlineMethod());
+                    });
+
+                    foreach (var i in onlineChecks)
+                    {
+                        if(i.Length != 0)
                         {
+                            result = i;
+
                             break;
                         }
                     }
@@ -249,6 +259,11 @@ namespace CPPReferenceDocumentation
         public string GenerateUtilityUrl()
         {
             return this.HttpCheckUrl("utility");
+        }
+
+        public string GenerateTypesUrl()
+        {
+            return this.HttpCheckUrl("types");
         }
     }
 }
