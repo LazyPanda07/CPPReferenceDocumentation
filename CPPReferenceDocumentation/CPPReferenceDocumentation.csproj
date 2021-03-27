@@ -69,7 +69,7 @@
     <Compile Include="CPPReferenceDocumentationPackage.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="LICENSE">
+    <Content Include="doc\LICENSE">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
