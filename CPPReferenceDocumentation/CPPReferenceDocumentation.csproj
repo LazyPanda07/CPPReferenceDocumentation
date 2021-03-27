@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Source\Interfaces\IAlgorithmUrlGenerator.cs" />
     <Compile Include="Source\Interfaces\IAtomicUrlGenerator.cs" />
+    <Compile Include="Source\Interfaces\IConceptsUrlGenerator.cs" />
     <Compile Include="Source\Interfaces\IContainerUrlGenerator.cs" />
     <Compile Include="Source\Interfaces\ICoroutineUrlGenerator.cs" />
     <Compile Include="Source\Interfaces\IDateTimeUrlGenerator.cs" />

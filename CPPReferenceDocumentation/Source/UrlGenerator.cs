@@ -25,7 +25,8 @@ namespace CPPReferenceDocumentation
         IAtomicUrlGenerator,
         ICoroutineUrlGenerator,
         IRegexUrlGenerator,
-        IErrorUrlGenerator
+        IErrorUrlGenerator,
+        IConceptsUrlGenerator
     {
         private readonly string baseRoute = "https://en.cppreference.com/w/cpp";
         private string data;
@@ -63,7 +64,8 @@ namespace CPPReferenceDocumentation
                         GenerateStringUrl,
                         GenerateCoroutineUrl,
                         GenerateRegexUrl,
-                        GenerateErrorUrl
+                        GenerateErrorUrl,
+                        GenerateConceptsUrl
                     };
 
                     onlineMethods = new List<Func<string>>()    // online check
@@ -343,6 +345,22 @@ namespace CPPReferenceDocumentation
                 data == "bad_exception")
             {
                 return $"{baseRoute}/error/{data}";
+            }
+
+            return "";
+        }
+
+        public string GenerateConceptsUrl()
+        {
+            if (data == "same_as" || data == "derived_from" || data == "convertible_to" || data == "common_reference_with" || data == "common_width" ||
+                data == "integral" || data == "signed_integral" || data == "unsigned_integral" || data == "floating_point" || data == "assignable_from" ||
+                data == "swappable" || data == "swappable_with" || data == "destructible" || data == "constructible_from" || data == "default_initializable" ||
+                data == "move_constructible" || data == "copy_constructible" ||
+                data == "boolean_testable" || data == "equality_comparable" || data == "equality_comparable_with" || data == "totally_ordered" || data == "totatlly_ordered_with" ||
+                data == "movable" || data == "copyable" || data == "semiregular" || data == "regular" ||
+                data == "invocable" || data == "regular_invocable" || data == "predicate" || data == "relation" || data == "equivalence_relation" || data == "strict_weak_order") 
+            {
+                return $"{baseRoute}/concepts/{data}";
             }
 
             return "";
