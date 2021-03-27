@@ -21,7 +21,7 @@
   <Extern href="vsshlids.h"/>
 
   <KeyBindings>
-    <KeyBinding guid="guidCPPReferenceDocumentationPackageCmdSet" id="GetDescriptionId" editor="guidVSStd97" key1="0x33" mod1="Control Shift"/>
+    <KeyBinding guid="guidCPPReferenceDocumentationPackageCmdSet" id="GetDocumentationId" editor="guidVSStd97" key1="0x33" mod1="Control Shift"/>
   </KeyBindings>
   
   <!--The Commands section is where commands, menus, and menu groups are defined.
@@ -40,7 +40,7 @@
          group as the part of a menu contained between two lines. The parent of a group
          must be a menu. -->
     <Groups>
-      <Group guid="guidCPPReferenceDocumentationPackageCmdSet" id="MyMenuGroup" priority="0x0600">
+      <Group guid="guidCPPReferenceDocumentationPackageCmdSet" id="GetDocumentationMenuGroup" priority="0x0600">
         <Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_TOOLS"/>
       </Group>
     </Groups>
@@ -56,11 +56,11 @@
               <CommandFlag>DefaultInvisible</CommandFlag>
               <CommandFlag>DynamicVisibility</CommandFlag>
           If you do not want an image next to your command, remove the Icon node /> -->
-      <Button guid="guidCPPReferenceDocumentationPackageCmdSet" id="GetDescriptionId" priority="0x0100" type="Button">
-        <Parent guid="guidCPPReferenceDocumentationPackageCmdSet" id="MyMenuGroup" />
-        <Icon guid="guidImages" id="bmpPic1" />
+      <Button guid="guidCPPReferenceDocumentationPackageCmdSet" id="GetDocumentationId" priority="0x0100" type="Button">
+        <Parent guid="guidCPPReferenceDocumentationPackageCmdSet" id="GetDocumentationMenuGroup" />
+        <Icon guid="guidImages" id="bmpPicSearch" />
         <Strings>
-          <ButtonText>Get description</ButtonText>
+          <ButtonText>Get documentation</ButtonText>
         </Strings>
       </Button>
     </Buttons>
@@ -72,7 +72,7 @@
             bitmap strip containing the bitmaps and then there are the numeric ids of the elements used
             inside a button definition. An important aspect of this declaration is that the element id
             must be the actual index (1-based) of the bitmap inside the bitmap strip. -->
-      <Bitmap guid="guidImages" href="Resources\GetDescription.png" usedList="bmpPic1, bmpPic2, bmpPicSearch, bmpPicX, bmpPicArrows, bmpPicStrikethrough"/>
+      <Bitmap guid="guidImages" href="Resources\GetDocumentation.png" usedList="bmpPic1, bmpPic2, bmpPicSearch, bmpPicX, bmpPicArrows, bmpPicStrikethrough"/>
     </Bitmaps>
   </Commands>
 
@@ -82,8 +82,8 @@
 
     <!-- This is the guid used to group the menu commands together -->
     <GuidSymbol name="guidCPPReferenceDocumentationPackageCmdSet" value="{77b119ac-3953-47f2-b233-d08f0007b210}">
-      <IDSymbol name="MyMenuGroup" value="0x1020" />
-      <IDSymbol name="GetDescriptionId" value="0x0100" />
+      <IDSymbol name="GetDocumentationMenuGroup" value="0x1020" />
+      <IDSymbol name="GetDocumentationId" value="0x0100" />
     </GuidSymbol>
 
     <GuidSymbol name="guidImages" value="{7a74923a-05d4-49c4-9a93-a8e2ee2dfa38}" >

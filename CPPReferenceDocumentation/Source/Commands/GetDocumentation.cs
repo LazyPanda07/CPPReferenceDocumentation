@@ -1,10 +1,7 @@
 ﻿using EnvDTE;
-using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Interop;
 using System;
+using Microsoft.VisualStudio.Shell;
 using System.ComponentModel.Design;
-using System.Globalization;
-using System.Diagnostics;
 using Task = System.Threading.Tasks.Task;
 
 namespace CPPReferenceDocumentation.Commands

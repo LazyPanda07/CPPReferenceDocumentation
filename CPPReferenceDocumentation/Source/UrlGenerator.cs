@@ -1,11 +1,9 @@
 ﻿using CPPReferenceDocumentation.Source.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Net.Http;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace CPPReferenceDocumentation
 {
@@ -324,8 +322,8 @@ namespace CPPReferenceDocumentation
         public string GenerateRegexUrl()
         {
             if (data == "basic_regex" || data == "sub_match" || data == "match_results" ||
-                 data == "regex_match" || data == "regex_search" || data=="regex_replace" ||
-                 data == "regex_iterator" || data == "regex_token_iterator" || 
+                 data == "regex_match" || data == "regex_search" || data == "regex_replace" ||
+                 data == "regex_iterator" || data == "regex_token_iterator" ||
                  data == "regex_error" ||
                  data == "regex_traits" ||
                  data == "syntax_option_type" || data == "match_flag_type" || data == "error_type")
@@ -338,7 +336,7 @@ namespace CPPReferenceDocumentation
 
         public string GenerateErrorUrl()
         {
-            if(data == "exception" ||
+            if (data == "exception" ||
                 data == "logic_error" || data == "domain_error" || data == "length_error" || data == "out_of_range" || data == "future_error" ||
                 data == "bad_optional_access" ||
                 data == "runtime_error" || data == "range_error" || data == "overflow_error" || data == "underflow_error" || data == "system_error" || data == "tx_exception" ||
@@ -358,7 +356,7 @@ namespace CPPReferenceDocumentation
                 data == "move_constructible" || data == "copy_constructible" ||
                 data == "boolean_testable" || data == "equality_comparable" || data == "equality_comparable_with" || data == "totally_ordered" || data == "totatlly_ordered_with" ||
                 data == "movable" || data == "copyable" || data == "semiregular" || data == "regular" ||
-                data == "invocable" || data == "regular_invocable" || data == "predicate" || data == "relation" || data == "equivalence_relation" || data == "strict_weak_order") 
+                data == "invocable" || data == "regular_invocable" || data == "predicate" || data == "relation" || data == "equivalence_relation" || data == "strict_weak_order")
             {
                 return $"{baseRoute}/concepts/{data}";
             }
