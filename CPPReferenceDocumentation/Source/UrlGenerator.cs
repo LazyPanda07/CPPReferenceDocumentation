@@ -24,7 +24,8 @@ namespace CPPReferenceDocumentation
         IRangesUrlGenerator,
         IAtomicUrlGenerator,
         ICoroutineUrlGenerator,
-        IRegexUrlGenerator
+        IRegexUrlGenerator,
+        IErrorUrlGenerator
     {
         private readonly string baseRoute = "https://en.cppreference.com/w/cpp";
         private string data;
@@ -61,7 +62,8 @@ namespace CPPReferenceDocumentation
                         GenerateStreamsUrl,
                         GenerateStringUrl,
                         GenerateCoroutineUrl,
-                        GenerateRegexUrl
+                        GenerateRegexUrl,
+                        GenerateErrorUrl
                     };
 
                     onlineMethods = new List<Func<string>>()    // online check
@@ -327,6 +329,20 @@ namespace CPPReferenceDocumentation
                  data == "syntax_option_type" || data == "match_flag_type" || data == "error_type")
             {
                 return $"{baseRoute}/regex/{data}";
+            }
+
+            return "";
+        }
+
+        public string GenerateErrorUrl()
+        {
+            if(data == "exception" ||
+                data == "logic_error" || data == "domain_error" || data == "length_error" || data == "out_of_range" || data == "future_error" ||
+                data == "bad_optional_access" ||
+                data == "runtime_error" || data == "range_error" || data == "overflow_error" || data == "underflow_error" || data == "system_error" || data == "tx_exception" ||
+                data == "bad_exception")
+            {
+                return $"{baseRoute}/error/{data}";
             }
 
             return "";
