@@ -98,6 +98,11 @@ namespace CPPReferenceDocumentation.Commands
 
             TextSelection selection = dte.ActiveDocument.Selection as TextSelection;
 
+            if(selection.Text.Length == 0)
+            {
+                return;
+            }
+
             urlGenerator.RawView = selection.Text;
 
             System.Diagnostics.Process.Start("chrome.exe", $"--new-window {urlGenerator.RawView}");
