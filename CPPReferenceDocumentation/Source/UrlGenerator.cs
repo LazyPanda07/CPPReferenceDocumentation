@@ -9,8 +9,6 @@ using System.Collections.Concurrent;
 
 namespace CPPReferenceDocumentation
 {
-    // TODO: coroutines - offline
-    // TODO: regex - offline
     class UrlGenerator :
         IContainerUrlGenerator,
         IAlgorithmUrlGenerator,
@@ -24,7 +22,9 @@ namespace CPPReferenceDocumentation
         IDateTimeUrlGenerator,
         IIteratorUrlGenerator,
         IRangesUrlGenerator,
-        IAtomicUrlGenerator
+        IAtomicUrlGenerator,
+        ICoroutineUrlGenerator,
+        IRegexUrlGenerator
     {
         private readonly string baseRoute = "https://en.cppreference.com/w/cpp";
         private string data;
@@ -59,7 +59,9 @@ namespace CPPReferenceDocumentation
                     {
                         GenerateContainerUrl,
                         GenerateStreamsUrl,
-                        GenerateStringUrl
+                        GenerateStringUrl,
+                        GenerateCoroutineUrl,
+                        GenerateRegexUrl
                     };
 
                     onlineMethods = new List<Func<string>>()    // online check
@@ -91,7 +93,7 @@ namespace CPPReferenceDocumentation
                     }
                 }
 
-                if(result.Length == 0)
+                if (result.Length == 0)
                 {
                     ConcurrentBag<string> onlineChecks = new ConcurrentBag<string>();
 
@@ -109,7 +111,7 @@ namespace CPPReferenceDocumentation
 
                     foreach (var i in onlineChecks)
                     {
-                        if(i.Length != 0)
+                        if (i.Length != 0)
                         {
                             result = i;
 
@@ -301,6 +303,33 @@ namespace CPPReferenceDocumentation
         public string GenerateAtomicUrl()
         {
             return this.HttpCheckUrl("atomic");
+        }
+
+        public string GenerateCoroutineUrl()
+        {
+            if (data == "coroutine_traits" || data == "coroutine_handle" ||
+                 data == "noop_coroutine" || data == "noop_coroutine_promise" || data == "noop_coroutine_handle" ||
+                 data == "suspend_never" || data == "suspend_always")
+            {
+                return $"{baseRoute}/coroutine/{data}";
+            }
+
+            return "";
+        }
+
+        public string GenerateRegexUrl()
+        {
+            if (data == "basic_regex" || data == "sub_match" || data == "match_results" ||
+                 data == "regex_match" || data == "regex_search" || data=="regex_replace" ||
+                 data == "regex_iterator" || data == "regex_token_iterator" || 
+                 data == "regex_error" ||
+                 data == "regex_traits" ||
+                 data == "syntax_option_type" || data == "match_flag_type" || data == "error_type")
+            {
+                return $"{baseRoute}/regex/{data}";
+            }
+
+            return "";
         }
     }
 }
