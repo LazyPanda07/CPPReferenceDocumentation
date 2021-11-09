@@ -32,13 +32,16 @@ namespace CPPReferenceDocumentation
         private List<Func<string>> offlineMethods;
         private List<Func<string>> onlineMethods;
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "VSTHRD002:Avoid problematic synchronous waits", Justification = "<Pending>")]
         private string HttpCheckUrl(string section)
         {
             using (HttpClient client = new HttpClient())
             {
                 string url = $"{baseRoute}/{section}/{data}";
 
-                if (client.GetAsync(url).Result.IsSuccessStatusCode)
+                var task = client.GetAsync(url);
+
+                if (task != null && task.Result.IsSuccessStatusCode)
                 {
                     return url;
                 }

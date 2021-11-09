@@ -26,7 +26,7 @@ namespace CPPReferenceDocumentation.Commands
         /// </summary>
         private readonly AsyncPackage package;
 
-        private static UrlGenerator urlGenerator = new UrlGenerator();
+        private static readonly UrlGenerator urlGenerator = new UrlGenerator();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GetDescription"/> class.
@@ -78,6 +78,7 @@ namespace CPPReferenceDocumentation.Commands
             Instance = new GetDocumentation(package, commandService);
         }
 
+
         /// <summary>
         /// This function is the callback used to execute the command when the menu item is clicked.
         /// See the constructor to see how the menu item is associated with this function using
@@ -85,27 +86,33 @@ namespace CPPReferenceDocumentation.Commands
         /// </summary>
         /// <param name="sender">Event sender.</param>
         /// <param name="e">Event args.</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "VSTHRD002:Avoid problematic synchronous waits", Justification = "<Pending>")]
         private void Execute(object sender, EventArgs e)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            DTE dte = package.GetServiceAsync(typeof(DTE)).Result as DTE;
+            var task = package.GetServiceAsync(typeof(DTE));
 
-            if (dte.ActiveDocument == null)
+            if (task != null)
             {
-                return;
+                DTE dte = task.Result as DTE;
+
+                if (dte != null && dte.ActiveDocument == null)
+                {
+                    return;
+                }
+
+                TextSelection selection = dte.ActiveDocument.Selection as TextSelection;
+
+                if (selection.Text.Length == 0)
+                {
+                    return;
+                }
+
+                urlGenerator.RawView = selection.Text;
+
+                System.Diagnostics.Process.Start("chrome.exe", $"--new-window {urlGenerator.RawView}");
             }
-
-            TextSelection selection = dte.ActiveDocument.Selection as TextSelection;
-
-            if(selection.Text.Length == 0)
-            {
-                return;
-            }
-
-            urlGenerator.RawView = selection.Text;
-
-            System.Diagnostics.Process.Start("chrome.exe", $"--new-window {urlGenerator.RawView}");
         }
     }
 }
