@@ -15,7 +15,7 @@ Icon author - https://www.flaticon.com/ru/authors/good-wareFast </Description>
         <Tags>Documentation C++</Tags>
     </Metadata>
     <Installation>
-        <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[17.0,)">
+        <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[17.0]">
             <ProductArchitecture>amd64</ProductArchitecture>
         </InstallationTarget>
     </Installation>
