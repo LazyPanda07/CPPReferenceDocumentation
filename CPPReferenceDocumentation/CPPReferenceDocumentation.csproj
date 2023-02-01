@@ -22,7 +22,7 @@
     <DelaySign>false</DelaySign>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>sign_key.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>sign_key.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -76,6 +76,7 @@
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <None Include="sign_key.pfx" />
+    <None Include="sign_key.snk" />
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>
     </None>
