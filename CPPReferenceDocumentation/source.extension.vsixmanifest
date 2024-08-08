@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="CPPReferenceDocumentation.5423cb51-18ff-4a2a-9c80-0749822790c8" Version="1.1.1" Language="en-US" Publisher="Semyon Gritsenko" />
+        <Identity Id="CPPReferenceDocumentation.5423cb51-18ff-4a2a-9c80-0749822790c8" Version="1.1.4" Language="en-US" Publisher="Semyon Gritsenko" />
         <DisplayName>CPPReferenceDocumentation</DisplayName>
         <Description xml:space="preserve">Fast en.cppreference.com C++ documentation access.
 
